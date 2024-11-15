@@ -22,12 +22,17 @@ ifeq ($(OS), Darwin)
 	LGTEST=-L$(shell brew --prefix googletest)/lib -lgtest -lgmock -pthread
 endif
 
+ifeq ($(OS), Linux)
+	IGTEST=-I/usr/include 
+	LGTEST=-L/usr/lib -lgtest -lgmock -pthread
+endif
+
 
 all: $(TARGET)
 	./$(TARGET)
 
-test:$(SRC_OBJECTS) $(TEST_OBJECTS)
-	$(CC) $(FLAGS) $(LGTEST) $^ -o $(TARGET)_test 
+test:clean $(SRC_OBJECTS) $(TEST_OBJECTS)
+	$(CC) $(FLAGS)  $(SRC_OBJECTS) $(TEST_OBJECTS) -o $(TARGET)_test $(LGTEST)
 	./$(TARGET)_test
 
 
@@ -47,5 +52,7 @@ $(OBJ_DIR)/%.o: $(TEST_DIR)/%.cpp
 
 clean:
 	rm -rf $(OBJ_DIR) $(TARGET) $(TARGET).a
+	rm -rf *_test
+
 
 .PHONY: all clean

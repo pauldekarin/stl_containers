@@ -69,11 +69,8 @@ protected:
     size_type size_ = 0;
 
 public:
-
-    __tree() = default;
-    __tree(const _T &__value):root_(_create_node(__value)){
-        
-    }
+    __tree():root_(nullptr){ }
+    __tree(const _T &__value):root_(_create_node(__value)){}
     ~__tree(){
         this->_clear(this->root_);
     }
@@ -114,6 +111,14 @@ public:
        return __n;
     }
 
+    __node *upper_bound(const _T &__t, _Compare comp = _Compare()){
+        __node *__n = this->root_;
+        if(__n != nullptr){
+            while(__n != nullptr && __n->left_ != nullptr) __n = __n->left_;
+            while(__n != nullptr && comp(__n->value_, __t) && __t != __n->value_) __n = this->_next_node(__n);
+        }
+        return __n;
+    }
 
     __node* find(const _T &__value, _Compare comp = _Compare()){
         __node *__current = this->root_;
@@ -138,7 +143,22 @@ public:
         return this->size_;
     }
 
+    size_type count(const _T &__t, _Compare comp = _Compare()){
+        size_type _c = 0;
+        __node *__n = this->root_;
+        while(__n != nullptr){
+            if(comp(__t, __n->value_)){
+                __n = __n->left_;
+            }else{
+                if(__t == __n->value_) _c++;
+                __n = __n->right_;
+            }
+        }
+
+        return _c;
+    }
 private:
+
     void _insert_node(__node *_node, const _T &_value, const _Compare comp = _Compare()){
         if(comp(_value, _node->value_)){
             if(_node->left_ == nullptr){
@@ -176,6 +196,7 @@ private:
     }
 
     __node *_next_node(__node *__n){
+        if(__n == nullptr) return __n;
         if (__n->right_ != nullptr) {
             __n = __n->right_;
             while (__n->left_ != nullptr) {
@@ -190,6 +211,22 @@ private:
             __n = __p;
         }
 
+        return __n;
+    }
+
+    __node *_prev_node(__node *__n){
+        if(__n == nullptr) return __n;
+        if(__n->left_ != nullptr){
+            __n = __n->left_;
+            while(__n != nullptr && __n->right_ != nullptr) __n = __n->right_;
+        }else{
+            __node *__p = __n->parent_;
+            while(__p != nullptr && __n == __p->left_){
+                __n = __p;
+                __p = __p->parent_;
+            }
+            __n = __p;
+        }
         return __n;
     }
 };
@@ -325,11 +362,12 @@ namespace s21{
         set():
             tree_(__alloc_traits::allocate(this->alloc_, 1))
         {
-
+            __alloc_traits::construct(this->alloc_, this->tree_);
         }
         set(std::initializer_list<value_type> const &__il):
             tree_(__alloc_traits::allocate(this->alloc_, 1))
         {   
+            __alloc_traits::construct(this->alloc_, this->tree_);
             for(auto it = __il.begin(); it != __il.end(); it++){
                 this->tree_->insert(*it);
             }
@@ -346,6 +384,10 @@ namespace s21{
         }
 
         void clear(){
+        }
+
+        size_type count(const _Key &__k){
+            return this->tree_->find(__k) != nullptr ? 1 : 0;
         }
         set& operator=(set &&__oth){
             
@@ -411,6 +453,9 @@ namespace s21{
 
         iterator lower_bound(const _Key &__k){
             return iterator(this->tree_->lower_bound(__k));
+        }
+        iterator upper_bound(const _Key &__k){
+            return iterator(this->tree_->upper_bound(__k));
         }
     };
 }

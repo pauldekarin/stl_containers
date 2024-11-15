@@ -15,3 +15,30 @@ public:
 
     };
 };
+
+class ListTester: public ::testing::Test{
+public:
+
+    s21::list<int> __il;
+
+    void SetUp(){
+
+    }
+
+    void TearDown(){
+
+    };
+};
+
+class MapTester: public ::testing::Test{
+public:
+    s21::map<int, int> __m;
+
+    void SetUp(){
+
+    }
+
+    void TearDown(){
+
+    }
+};
