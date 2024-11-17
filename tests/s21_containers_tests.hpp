@@ -42,3 +42,17 @@ public:
 
     }
 };
+
+
+class VectorTester: public ::testing::Test{
+public:
+    s21::vector<int> __v;
+
+    void SetUp(){
+
+    }
+
+    void TearDown(){
+
+    }
+};

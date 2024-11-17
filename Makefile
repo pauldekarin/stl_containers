@@ -18,7 +18,7 @@ AR = ar
 OS=$(shell uname -s)
 
 ifeq ($(OS), Darwin)
-	IGTEST=-I$(shell brew --prefix googletest)/include
+	IGTEST=-I$(shell brew --prefix googletest)/include 
 	LGTEST=-L$(shell brew --prefix googletest)/lib -lgtest -lgmock -pthread
 endif
 
@@ -31,6 +31,13 @@ endif
 all: $(TARGET)
 	./$(TARGET)
 
+map:clean
+	$(CC) $(FLAGS) ./tests/src/map_tests.cpp ./tests/src/s21_containers_tests.cpp $(LGTEST) $(IGTEST)
+	./a.out
+
+vec:clean
+	$(CC) $(FLAGS) ./tests/src/vector_tests.cpp  ./tests/src/s21_containers_tests.cpp $(LGTEST) $(IGTEST)
+	./a.out
 test:clean $(SRC_OBJECTS) $(TEST_OBJECTS)
 	$(CC) $(FLAGS)  $(SRC_OBJECTS) $(TEST_OBJECTS) -o $(TARGET)_test $(LGTEST)
 	./$(TARGET)_test
@@ -53,6 +60,7 @@ $(OBJ_DIR)/%.o: $(TEST_DIR)/%.cpp
 clean:
 	rm -rf $(OBJ_DIR) $(TARGET) $(TARGET).a
 	rm -rf *_test
+	rm -rf *.out
 
 
 .PHONY: all clean

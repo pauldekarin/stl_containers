@@ -268,6 +268,7 @@ namespace s21{
                 __oth.root_ = __tmp_root;
                 __oth.sentinel_ = __tmp_sentinel;
                 __oth.size_ = __tmp_size;
+                
             }
         }
 
