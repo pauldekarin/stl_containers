@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <iostream>
+#include <iterator>
 #include "../sequence/sequence.h"
 #include "../utility/utility.hpp"
 namespace s21{
@@ -16,6 +17,7 @@ namespace s21{
         typedef std::ptrdiff_t                  difference_type;
         typedef std::size_t                     size_type;
 
+        __vec_iterator();
         __vec_iterator(pointer __p = nullptr);
         __vec_iterator(const __vec_iterator &__i);
 
@@ -29,7 +31,10 @@ namespace s21{
 
         __vec_iterator& operator+=(difference_type);
 
+        __vec_iterator& operator-=(difference_type);
+
         __vec_iterator operator+(difference_type);
+
 
         difference_type operator-(__vec_iterator&);
 
@@ -58,7 +63,9 @@ namespace s21{
         using pointer           =       typename alloc_type::pointer;
         using iterator          =       __vec_iterator<value_type>;
         using const_iterator    =       __vec_iterator<const value_type>;
+        using reverse_iterator  =       std::reverse_iterator<iterator>;
         using size_type         =       typename alloc_type::size_type;
+
 
     protected:
         alloc_type alloc_;
@@ -87,6 +94,9 @@ namespace s21{
         const_iterator begin() const;
         const_iterator end() const;
 
+        reverse_iterator rbegin();
+        reverse_iterator rend();
+
         bool empty();	
         size_type size();	
         size_type max_size();	
@@ -102,7 +112,6 @@ namespace s21{
         void pop_back();	
     
     private:
-        pointer __allocate(size_type __n);
         void __destroy();
         void __move(vector&&);
         template <class _InputIter>

@@ -30,6 +30,21 @@ public:
     };
 };
 
+class DequeTester: public ::testing::Test{
+public:
+    s21::deque<int> __d;
+
+    void SetUp(){
+
+    }
+    
+    void TearDown(){
+
+    }
+};
+
+
+
 class MapTester: public ::testing::Test{
 public:
     s21::map<int, int> __m;

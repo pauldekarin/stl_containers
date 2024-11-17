@@ -1,5 +1,6 @@
 CC=g++ -std=c++17
 FLAGS=#-Wall -Werror -Wextra
+GCOV_FLAGS=-fprofile-arcs -ftest-coverage 
 
 OBJ_DIR = ./obj
 
@@ -38,6 +39,13 @@ map:clean
 vec:clean
 	$(CC) $(FLAGS) ./tests/src/vector_tests.cpp  ./tests/src/s21_containers_tests.cpp $(LGTEST) $(IGTEST)
 	./a.out
+
+deq:clean
+	$(CC) $(FLAGS) ./tests/src/deque_tests.cpp ./tests/src/s21_containers_tests.cpp $(LGTEST) $(IGTEST)
+	./a.out
+
+
+
 test:clean $(SRC_OBJECTS) $(TEST_OBJECTS)
 	$(CC) $(FLAGS)  $(SRC_OBJECTS) $(TEST_OBJECTS) -o $(TARGET)_test $(LGTEST)
 	./$(TARGET)_test
@@ -61,6 +69,14 @@ clean:
 	rm -rf $(OBJ_DIR) $(TARGET) $(TARGET).a
 	rm -rf *_test
 	rm -rf *.out
-
+	rm -f $(TARGET).info *.gcda *.gcno gcov_report.out
+	rm -rf ./report
 
 .PHONY: all clean
+
+gcov_report:
+	$(CC) $(FLAGS) $(GCOV_FLAGS) --coverage -o gcov_report.out  ./tests/src/s21_containers_tests.cpp ./tests/src/vector_tests.cpp $(LGTEST) $(IGTEST)
+	./gcov_report.out
+	lcov -t "$(TARGET)" -o $(TARGET).info -c -d . --ignore-errors mismatch,inconsistent,corrupt
+	genhtml -o report --ignore-errors inconsistent,inconsistent $(TARGET).info -q
+	@rm -f $(TARGET).info *.gcda *.gcno gcov_report.out

@@ -5,6 +5,9 @@
 
 namespace s21{
     template <typename _T>
+    __vec_iterator<_T>::__vec_iterator(){}
+
+    template <typename _T>
     __vec_iterator<_T>::__vec_iterator(__vec_iterator<_T>::pointer __p): __ptr__(__p){}
     
     template <typename _T>
@@ -41,6 +44,13 @@ namespace s21{
         this->__ptr__ += __n;
         return *this;
     }
+
+    template <typename _T>
+    __vec_iterator<_T>& __vec_iterator<_T>::operator-=(difference_type __n){
+        this->__ptr__ -= __n;
+        return *this;
+    }
+
 
     template <typename _T>
     typename __vec_iterator<_T>::difference_type __vec_iterator<_T>::operator-(__vec_iterator& __i){

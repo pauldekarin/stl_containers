@@ -6,3 +6,4 @@
 #include "sequence.h"
 #include "list.h"
 #include "map.h"
+#include "./deque/deque.h"

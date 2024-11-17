@@ -96,7 +96,119 @@ TEST_F(VectorTester, Erase){
 }
 
 TEST_F(VectorTester, Accessors){
-    std::vector<int> v;
+    ASSERT_THROW(__v.back(), std::out_of_range);
+    ASSERT_THROW(__v.front(), std::out_of_range);
+    ASSERT_THROW(__v[0], std::out_of_range);
+    ASSERT_THROW(__v.at(0), std::out_of_range);
+    ASSERT_EQ(__v.data(), nullptr);
     
+    __v.insert(__v.end(), 1);
+
+    std::vector<int> v({1});
+
+    ASSERT_EQ(__v.back(), v.back());
+    ASSERT_EQ(__v.front(), v.front());
+    ASSERT_EQ(__v.at(0), v.at(0));
+    ASSERT_EQ(__v[0], v[0]);
+    ASSERT_TRUE(__v.data() != nullptr);
+
+    __v.insert(__v.begin(), 2);
+
+    v.insert(v.begin(), 2);
+
+    ASSERT_EQ(__v.back(), v.back());
+    ASSERT_EQ(__v.front(), v.front());
+    ASSERT_EQ(__v.at(0), v.at(0));
+    ASSERT_EQ(__v[0], v[0]);
+    ASSERT_EQ(__v.at(1), v.at(1));
+    ASSERT_EQ(__v[1], v[1]);
 }
 
+TEST_F(VectorTester, ShrinkToFit){
+    __v.shrink_to_fit();
+    ASSERT_EQ(__v.size(), __v.capacity());
+
+    __v.reserve(10);
+
+    ASSERT_FALSE(__v.size() == __v.capacity());
+
+    __v.shrink_to_fit();
+
+    ASSERT_EQ(__v.size(), __v.capacity());
+
+    __v.insert(__v.begin(), 1);
+    __v.insert(__v.begin(), 1);
+    __v.insert(__v.begin(), 1);
+    __v.insert(__v.begin(), 1);
+    __v.insert(__v.begin(), 1);
+
+    ASSERT_FALSE(__v.size() == __v.capacity());
+
+    __v.shrink_to_fit();
+
+    ASSERT_TRUE(__v.size() == __v.capacity());
+
+    __v.clear();
+
+    ASSERT_FALSE(__v.size() == __v.capacity());
+    
+    __v.shrink_to_fit();
+
+    ASSERT_TRUE(__v.size() == __v.capacity());
+}
+
+TEST_F(VectorTester, Swap){
+    s21::vector<int> __l({1,2,3,4});
+
+    std::vector<int> v;
+    std::vector<int> l({1,2,3,4});
+
+
+    __v.swap(__l);
+    v.swap(l);
+
+    ASSERT_TRUE(__cmp(__v, v));
+    ASSERT_TRUE(__cmp(__l, l));
+}
+
+TEST_F(VectorTester, PushPopBack){
+    ASSERT_THROW(__v.pop_back(), std::out_of_range);
+
+    std::vector<int> v;
+
+    __v.push_back(1);
+    __v.push_back(2);
+    __v.push_back(3);
+
+    v.push_back(1);
+    v.push_back(2);
+    v.push_back(3);
+
+    ASSERT_TRUE(__cmp(__v,v));
+
+    __v.pop_back();
+    v.pop_back();
+
+    ASSERT_TRUE(__cmp(__v, v));
+
+    __v.pop_back();
+    __v.pop_back();
+    v.pop_back();
+    v.pop_back();
+
+    ASSERT_TRUE(__cmp(__v, v));
+
+    ASSERT_THROW(__v.pop_back(), std::out_of_range);
+}
+
+TEST_F(VectorTester, ReverseIterator){
+    __v = s21::vector<int>({1,2,3,4});
+
+    ASSERT_EQ(*__v.rbegin(), 4);
+    ASSERT_EQ(*std::prev(__v.rend()), 1);
+}
+
+TEST_F(VectorTester, MaxSize){
+    std::vector<int> v;
+    ASSERT_EQ(__v.max_size(), v.max_size());
+}

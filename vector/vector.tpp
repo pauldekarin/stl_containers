@@ -57,7 +57,7 @@ namespace s21{
     template<typename _T, class _Allocator>
     typename vector<_T, _Allocator>::const_reference vector<_T, _Allocator>::front(){
         if(this->empty()){
-            throw std::out_of_range("front is empty")
+            throw std::out_of_range("front is empty");
         }
 
         return *this->begin();
@@ -66,7 +66,7 @@ namespace s21{
     template<typename _T, class _Allocator>
     typename vector<_T, _Allocator>::const_reference vector<_T, _Allocator>::back(){
         if(this->empty()){
-            throw std::out_of_range("back is empty")
+            throw std::out_of_range("back is empty");
         }
         return *std::prev(this->end());
     }
@@ -94,6 +94,16 @@ namespace s21{
     template<typename _T, class _Allocator>
     typename vector<_T, _Allocator>::const_iterator vector<_T, _Allocator>::end() const{
         return const_iterator(this->end_);
+    }
+
+    template <typename _T, class _Allocator>
+    typename vector<_T, _Allocator>::reverse_iterator vector<_T, _Allocator>::rbegin(){
+        return reverse_iterator(this->end());
+    }
+
+    template <typename _T, class _Allocator>
+    typename vector<_T, _Allocator>::reverse_iterator vector<_T, _Allocator>::rend(){
+        return reverse_iterator(this->begin());
     }
 
     template<typename _T, class _Allocator>
@@ -137,7 +147,7 @@ namespace s21{
 
     template<typename _T, class _Allocator>
     void vector<_T, _Allocator>::shrink_to_fit(){
-
+        this->cap_ = this->end_;
     }
 
     template<typename _T, class _Allocator>
@@ -153,10 +163,15 @@ namespace s21{
         }
         *std::next(this->begin(), __n) = __ref;
         std::advance(this->end_, 1);
+
+        return std::next(this->begin(), __n);
     }
 
     template<typename _T, class _Allocator>
     void vector<_T, _Allocator>::clear(){
+        for(size_type __i = 0; __i < this->size(); __i++){
+            alloc_traits::destroy(this->alloc_, this->begin_ + __i);
+        }
         this->end_ = this->begin_;
     }
 
@@ -169,7 +184,10 @@ namespace s21{
         for(iterator it = __pos; it != this->end(); it++){
             *it = std::move(*std::next(it));
         }
+
+        pointer __tail = this->end_;
         std::advance(this->end_, -1);
+        alloc_traits::destroy(this->alloc_, __tail);
     }
 
     template<typename _T, class _Allocator>
@@ -193,13 +211,6 @@ namespace s21{
         }
 
         std::advance(this->end_, -1);
-    }
-
-    template<typename _T, class _Allocator>
-    typename vector<_T, _Allocator>::pointer vector<_T, _Allocator>::__allocate(size_type __n){
-        pointer __ptr = alloc_traits::allocate(this->alloc_, __n);
-
-        return __ptr;
     }
 
     template <typename _T, class _Allocator>
