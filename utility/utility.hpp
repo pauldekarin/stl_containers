@@ -3,7 +3,7 @@
 #include <iostream>
 
 template<typename _T, template <typename, typename> class  _SeqContainer, class _Alloc = std::allocator<_T> >
-std::ostream &operator<<(std::ostream &os, const _SeqContainer<_T, _Alloc> &__seq){
+std::ostream &operator<<(std::ostream &os,  _SeqContainer<_T, _Alloc> &__seq){
     for(typename _SeqContainer<_T, _Alloc>::const_iterator it = __seq.begin(); it != __seq.end(); it++){
         os << *it << " | ";
     }

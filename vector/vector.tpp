@@ -113,12 +113,12 @@ namespace s21{
 
     template<typename _T, class _Allocator>
     typename vector<_T, _Allocator>::size_type vector<_T, _Allocator>::size(){
-        return static_cast<size_type>(_VSTD::distance(this->begin_, this->end_));
+        return static_cast<size_type>(std::distance(this->begin_, this->end_));
     }
 
     template<typename _T, class _Allocator>
     typename vector<_T, _Allocator>::size_type vector<_T, _Allocator>::max_size(){
-        return static_cast<size_type>(_VSTD::allocator_traits<alloc_type>::max_size(this->alloc_));
+        return static_cast<size_type>(std::allocator_traits<alloc_type>::max_size(this->alloc_));
     }
 
     template<typename _T, class _Allocator>
@@ -142,7 +142,7 @@ namespace s21{
 
     template<typename _T, class _Allocator>
     typename vector<_T, _Allocator>::size_type vector<_T, _Allocator>::capacity(){
-        return static_cast<size_type>(_VSTD::distance(this->begin_, this->cap_));
+        return static_cast<size_type>(std::distance(this->begin_, this->cap_));
     }
 
     template<typename _T, class _Allocator>

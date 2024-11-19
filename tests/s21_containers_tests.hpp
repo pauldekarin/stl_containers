@@ -5,6 +5,19 @@
 #include <gtest/gtest.h>
 
 
+class StackTester: public ::testing::Test{
+public:
+    s21::stack<int> __s;
+    
+    void SetUp(){
+
+    }
+
+    void TearDown(){
+
+    }
+};
+
 class SetTester: public ::testing::Test{
 public:
     void SetUp(){

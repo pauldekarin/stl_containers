@@ -43,7 +43,9 @@ vec:clean
 deq:clean
 	$(CC) $(FLAGS) ./tests/src/deque_tests.cpp ./tests/src/s21_containers_tests.cpp $(LGTEST) $(IGTEST)
 	./a.out
-
+stack: clean
+	$(CC) $(FLAGS) ./tests/src/stack_tests.cpp ./tests/src/s21_containers_tests.cpp $(LGTEST) $(IGTEST)
+	./a.out
 
 
 test:clean $(SRC_OBJECTS) $(TEST_OBJECTS)

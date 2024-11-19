@@ -3,7 +3,6 @@
 #include <memory>
 #include <iostream>
 #include <iterator>
-#include "../sequence/sequence.h"
 #include "../utility/utility.hpp"
 namespace s21{
     template <typename _T>
