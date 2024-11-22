@@ -35,6 +35,9 @@ all: $(TARGET)
 map:clean
 	$(CC) $(FLAGS) ./tests/src/map_tests.cpp ./tests/src/s21_containers_tests.cpp $(LGTEST) $(IGTEST)
 	./a.out
+mmap:clean
+	$(CC) $(FLAGS) ./tests/src/multimap.cpp ./tests/src/s21_containers_tests.cpp $(LGTEST) $(IGTEST)
+	./a.out
 
 vec:clean
 	$(CC) $(FLAGS) ./tests/src/vector_tests.cpp  ./tests/src/s21_containers_tests.cpp $(LGTEST) $(IGTEST)
@@ -47,6 +50,15 @@ stack: clean
 	$(CC) $(FLAGS) ./tests/src/stack_tests.cpp ./tests/src/s21_containers_tests.cpp $(LGTEST) $(IGTEST)
 	./a.out
 
+tree: clean
+	$(CC) $(FLAGS) ./tests/src/tree_tests.cpp ./tests/src/s21_containers_tests.cpp $(LGTEST) $(IGTEST)
+	./a.out
+list: clean
+	$(CC) $(FLAGS) ./tests/src/list.cpp ./tests/src/s21_containers_tests.cpp $(LGTEST) $(IGTEST)
+	./a.out
+arr: clean
+	$(CC) $(FLAGS) ./tests/src/array.cpp ./tests/src/s21_containers_tests.cpp $(LGTEST) $(IGTEST)
+	./a.out
 
 test:clean $(SRC_OBJECTS) $(TEST_OBJECTS)
 	$(CC) $(FLAGS)  $(SRC_OBJECTS) $(TEST_OBJECTS) -o $(TARGET)_test $(LGTEST)

@@ -1,8 +1,10 @@
 #pragma once
 
 #include "../s21_containers.h"
+#include "../utility/utility.hpp"
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
+
 
 
 class StackTester: public ::testing::Test{
