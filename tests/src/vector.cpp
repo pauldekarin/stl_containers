@@ -1,4 +1,34 @@
-#include "../s21_containers_tests.hpp"
+#include "../tests.hpp"
+
+
+TEST(Vector_PushBack, Common){
+    std::function<bool(std::size_t)> __push_test = [](std::size_t __test_id){
+        s21::vector<int> __v;
+        std::vector<int> v;
+        for(std::size_t __i = 0; __i <= std::rand() % 1000; __i++){
+            int __x = std::rand();
+            __v.push_back(__x);
+            v.push_back(__x);
+        }
+        return __cmp(__v,v);
+    };
+    ASSERT_TRUE(__loop_test(__push_test));
+}
+
+
+TEST(Vector_Size, Common){
+    std::function<bool(std::size_t)> __push_test = [](std::size_t __test_id){
+        s21::vector<int> __v;
+        std::vector<int> v;
+        for(std::size_t __i = 0; __i <= std::rand() % 1000; __i++){
+            int __x = std::rand();
+            __v.push_back(__x);
+            v.push_back(__x);
+        }
+        return v.size() == __v.size();
+    };
+    ASSERT_TRUE(__loop_test(__push_test));
+}
 
 
 TEST_F(VectorTester, Constructor){
@@ -19,17 +49,6 @@ TEST_F(VectorTester, Constructor){
     ASSERT_EQ(__cmp(__e, e), true);
 }
 
-TEST_F(VectorTester, Size){
-    ASSERT_EQ(__v.size(), 0);
-    __v = s21::vector<int>({1,2,3,4});
-    ASSERT_EQ(__v.size(), 4);
-    __v.erase(__v.begin());
-    ASSERT_EQ(__v.size(), 3);
-    __v.erase(__v.begin());
-    __v.erase(__v.begin());
-    __v.erase(__v.begin());
-    ASSERT_EQ(__v.size(), 0);
-}
 
 TEST_F(VectorTester, Empty){
     ASSERT_EQ(__v.empty(), true);

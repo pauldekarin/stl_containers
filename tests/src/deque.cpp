@@ -1,9 +1,5 @@
-#include "../s21_containers_tests.hpp"
+#include "../tests.hpp"
 
-
-// TEST_F(DequeTester, IteratorOperators){
-   
-// }
 
 TEST_F(DequeTester, Erase){
     __d = s21::deque<int>({1,2,3,4,5,6,7,8});
@@ -99,6 +95,4 @@ TEST_F(DequeTester, ShrinkToFit){
 
 
     __d.shrink_to_fit();
-    std::cout << __d.capacity() << std::endl;
-    std::cout << __d << std::endl;
 }

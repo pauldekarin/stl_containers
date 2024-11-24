@@ -1,4 +1,4 @@
-#include "../s21_containers_tests.hpp"
+#include "../tests.hpp"
 
 TEST(Array_Constructor, Default){
     s21::array<int, 4> a;

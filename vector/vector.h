@@ -3,7 +3,7 @@
 #include <memory>
 #include <iostream>
 #include <iterator>
-#include "../utility/utility.hpp"
+
 namespace s21{
     template <typename _T>
     class __vec_iterator{

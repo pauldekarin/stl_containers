@@ -33,31 +33,38 @@ all: $(TARGET)
 	./$(TARGET)
 
 map:clean
-	$(CC) $(FLAGS) ./tests/src/map_tests.cpp ./tests/src/s21_containers_tests.cpp $(LGTEST) $(IGTEST)
+	$(CC) $(FLAGS) ./tests/src/map_tests.cpp ./tests/src/tests.cpp $(LGTEST) $(IGTEST)
 	./a.out
 mmap:clean
-	$(CC) $(FLAGS) ./tests/src/multimap.cpp ./tests/src/s21_containers_tests.cpp $(LGTEST) $(IGTEST)
+	$(CC) $(FLAGS) ./tests/src/multimap.cpp ./tests/src/tests.cpp $(LGTEST) $(IGTEST)
 	./a.out
 
 vec:clean
-	$(CC) $(FLAGS) ./tests/src/vector_tests.cpp  ./tests/src/s21_containers_tests.cpp $(LGTEST) $(IGTEST)
+	$(CC) $(FLAGS) ./tests/src/vector.cpp  ./tests/src/tests.cpp $(LGTEST) $(IGTEST)
 	./a.out
 
 deq:clean
-	$(CC) $(FLAGS) ./tests/src/deque_tests.cpp ./tests/src/s21_containers_tests.cpp $(LGTEST) $(IGTEST)
+	$(CC) $(FLAGS) ./tests/src/deque.cpp ./tests/src/tests.cpp $(LGTEST) $(IGTEST)
 	./a.out
 stack: clean
-	$(CC) $(FLAGS) ./tests/src/stack_tests.cpp ./tests/src/s21_containers_tests.cpp $(LGTEST) $(IGTEST)
+	$(CC) $(FLAGS) ./tests/src/stack_tests.cpp ./tests/src/tests.cpp $(LGTEST) $(IGTEST)
+	./a.out
+set: clean
+	$(CC) $(FLAGS) ./tests/src/set.cpp ./tests/src/tests.cpp $(LGTEST) $(IGTEST)
+	./a.out
+
+mset: clean
+	$(CC) $(FLAGS) ./tests/src/multiset.cpp ./tests/src/tests.cpp $(LGTEST) $(IGTEST)
 	./a.out
 
 tree: clean
-	$(CC) $(FLAGS) ./tests/src/tree_tests.cpp ./tests/src/s21_containers_tests.cpp $(LGTEST) $(IGTEST)
+	$(CC) $(FLAGS) ./tests/src/tree.cpp ./tests/src/tests.cpp $(LGTEST) $(IGTEST)
 	./a.out
 list: clean
-	$(CC) $(FLAGS) ./tests/src/list.cpp ./tests/src/s21_containers_tests.cpp $(LGTEST) $(IGTEST)
+	$(CC) $(FLAGS) ./tests/src/list.cpp ./tests/src/tests.cpp $(LGTEST) $(IGTEST)
 	./a.out
 arr: clean
-	$(CC) $(FLAGS) ./tests/src/array.cpp ./tests/src/s21_containers_tests.cpp $(LGTEST) $(IGTEST)
+	$(CC) $(FLAGS) ./tests/src/array.cpp ./tests/src/tests.cpp $(LGTEST) $(IGTEST)
 	./a.out
 
 test:clean $(SRC_OBJECTS) $(TEST_OBJECTS)
@@ -89,7 +96,7 @@ clean:
 .PHONY: all clean
 
 gcov_report:
-	$(CC) $(FLAGS) $(GCOV_FLAGS) --coverage -o gcov_report.out  ./tests/src/s21_containers_tests.cpp ./tests/src/vector_tests.cpp $(LGTEST) $(IGTEST)
+	$(CC) $(FLAGS) $(GCOV_FLAGS) --coverage -o gcov_report.out  ./tests/src/tests.cpp ./tests/src/vector.cpp $(LGTEST) $(IGTEST)
 	./gcov_report.out
 	lcov -t "$(TARGET)" -o $(TARGET).info -c -d . --ignore-errors mismatch,inconsistent,corrupt
 	genhtml -o report --ignore-errors inconsistent,inconsistent $(TARGET).info -q

@@ -21,10 +21,9 @@ public:
     using iterator_category = std::bidirectional_iterator_tag;
     using difference_type = std::ptrdiff_t;
 
-
 public:
     __node *n_ = nullptr;
-    
+
     __list_iterator();
     __list_iterator(__node *__n);
     template <typename _U>

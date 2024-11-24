@@ -1,29 +1,4 @@
-#include "../s21_containers_tests.hpp"
-
-
-template <typename _T, template <typename, typename> class _LContainer, template<typename,typename> class _RContainer, class _Allocator = std::allocator<_T>>
-bool __cmp(_LContainer<_T, _Allocator> &__lhs, _RContainer<_T, _Allocator> &__rhs){
-    typename _LContainer<_T,_Allocator>::iterator it = __lhs.begin();
-    typename _RContainer<_T,_Allocator>::iterator jt = __rhs.begin();
-
-    while(it != __lhs.end() && jt != __rhs.end()){
-        if(*it != *jt){
-            return false;
-        }
-        it++;
-        jt++;
-    }
-
-    return it == __lhs.end() && jt == __rhs.end();
-}
-
-template <typename _T, template <typename ,typename>  class _Container, class _Allocator = std::allocator<_T>>
-std::ostream& operator<<(std::ostream &os, _Container<_T, _Allocator> &l){
-    for(typename _Container<_T, _Allocator>::iterator it = l.begin(); it != l.end(); it++){
-        os << *it << std::endl;
-    }
-    return os;
-}
+#include "../tests.hpp"
 
 TEST_F(ListTester, Insert_Common){
     __il.insert(__il.begin(), 1);
