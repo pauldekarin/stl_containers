@@ -122,6 +122,29 @@ namespace s21{
         return iterator(__n);
     }
 
+    template <typename _T, class _Allocator>
+    template <class... Args>
+    typename list<_T, _Allocator>::iterator list<_T, _Allocator>::insert_many(const_iterator __pos, Args&&... args){
+        static_assert((std::is_convertible<Args, _T>::value && ...), "insert_many arguments must be _T");
+        ((__pos = insert(__pos, std::forward<Args>(args)), ++__pos), ...);
+        return std::prev(__pos);
+    }
+
+    template <typename _T, class _Allocator>
+    template <class... Args>
+    void list<_T, _Allocator>::insert_many_back(Args&&... args){
+        static_assert((std::is_convertible<Args, _T>::value && ...), "insert_many_back must be convertible");
+        ((push_back(std::forward<Args>(args))), ...);
+    }
+
+    template <typename _T, class _Allocator>
+    template <class... Args>
+    void list<_T, _Allocator>::insert_many_front(Args&&... args){
+        static_assert((std::is_convertible<Args, _T>::value && ...), "list insert_many_front must be convertible");
+        iterator it = begin();
+        ((it = insert(it, std::forward<Args>(args)), ++it), ...);
+    }
+
     template <typename _T, class _Allocator>    
     void 
     list<_T, _Allocator>::clear(){
@@ -322,13 +345,13 @@ namespace s21{
     template <typename _T, class _Allocator>
     typename list<_T, _Allocator>::const_iterator 
     list<_T, _Allocator>::begin() const{
-        return this->size() == 0 ? this->end() : const_iterator(this->root_);
+        return this->size() == 0 ? this->end() : const_iterator(iterator(this->root_));
     }
 
     template <typename _T, class _Allocator>
     typename list<_T, _Allocator>::const_iterator 
     list<_T, _Allocator>::end() const{
-        return const_iterator(this->sentinel_);
+        return const_iterator(iterator(this->sentinel_));
     }
 
     template <typename _T, class _Allocator>

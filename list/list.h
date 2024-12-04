@@ -26,7 +26,7 @@ public:
 
     __list_iterator();
     __list_iterator(__node *__n);
-    template <typename _U>
+    template <typename _U, typename = std::enable_if<std::is_same<const _T, _U>::value>>
     __list_iterator(const __list_iterator<_U>& __it);
 
     __node *get() const;
@@ -93,7 +93,9 @@ namespace s21{
         inline bool empty() const;
 
         iterator insert(iterator __pos, const_reference __value);
-
+        template <class... Args> iterator insert_many(const_iterator, Args&&...);
+        template <class... Args> void insert_many_back(Args&&...);
+        template <class... Args> void insert_many_front(Args&&...);
         void clear();
 
         void erase(iterator __pos);
@@ -106,8 +108,7 @@ namespace s21{
 
         void swap(list &__oth);
 
-        template <class _Compare = std::less<_T>>
-        void merge(list &__oth, _Compare comp = _Compare());
+        template <class _Compare = std::less<_T>> void merge(list &__oth, _Compare comp = _Compare());
 
         void splice(const_iterator __pos, list &__oth);
 
@@ -115,8 +116,7 @@ namespace s21{
 
         void unique();
 
-        template <typename _Compare = std::less<_T>>
-        void sort();
+        template <typename _Compare = std::less<_T>> void sort();
 
         iterator begin() ;
         iterator end() ;

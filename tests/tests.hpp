@@ -93,8 +93,14 @@ __cmp(
     return it == __lhs.end() && jt == __rhs.end();
 }
 
+template <typename _Tp, typename _Up>
+typename std::enable_if_t<std::is_integral_v<std::remove_const_t<_Tp>> && std::is_integral_v<std::remove_const_t<_Up> >, std::ostream&>
+operator<<(std::ostream &os, const std::pair<_Tp, _Up> &p){
+    return os << p.first << " -- " << p.second;
+}
+
 template <typename _Container, typename value_type = typename _Container::value_type>
-typename std::enable_if< std::is_integral<value_type>::value && is_iterable<_Container>::value && !std::is_same<std::string, _Container>::value, std::ostream& >::type
+typename std::enable_if<is_iterable<_Container>::value && !std::is_same<std::string, _Container>::value, std::ostream& >::type
 operator<<(std::ostream &os, const _Container &__c){
     os << "[ ";
     for(

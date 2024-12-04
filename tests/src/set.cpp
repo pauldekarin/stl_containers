@@ -39,6 +39,12 @@ TEST(Set_LowerBound, Common){
     ASSERT_TRUE(__loop_test(__lb_test));
 }
 
+TEST(Set_InsertMany, Common){
+    s21::set<int> s;
+    auto it = s.insert_many(1,1,1,1);
+    std::cout << *it.first;
+}
+
 TEST(Set_UpperBound, Common){
     std::function<bool(std::size_t)> __ub_test = [](std::size_t __test_id){
         std::set<int> s;

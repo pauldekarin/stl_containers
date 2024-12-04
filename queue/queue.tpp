@@ -60,7 +60,12 @@ namespace s21{
     void queue<_T, _Container>::push(const_reference __ref){
         this->c_.push_back(__ref);
     }
-
+    template <typename _T, class _Container>
+    template <class... Args>
+    void queue<_T, _Container>::insert_many_back(Args&&... args){
+        static_assert((std::is_convertible<Args, _T>::value && ...), "queue insert many back must be convertible args");
+        ((push(std::forward<Args>(args))), ...);
+    }
     template <typename _T, class _Container>
     void queue<_T, _Container>::pop(){
         this->c_.erase(this->c_.begin());

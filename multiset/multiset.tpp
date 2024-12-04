@@ -116,6 +116,16 @@ namespace s21{
     }
     
     template <typename _T, class _Compare, class _Allocator>
+    template <class... Args>
+    std::pair<typename multiset<_T, _Compare, _Allocator>::iterator, bool>
+    multiset<_T, _Compare, _Allocator>::insert_many(Args&&... args){
+        static_assert((std::is_convertible<Args, _T>::value && ...), "multiset insert_many must be convertible to value_type");
+        std::pair<iterator, bool> __res = {end(), false};
+        ((__res = insert(std::forward<Args>(args))), ...);
+        return __res;
+    }
+
+    template <typename _T, class _Compare, class _Allocator>
     void 
     multiset<_T, _Compare, _Allocator>::erase(iterator __pos){
         if(this->empty()){

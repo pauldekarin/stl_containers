@@ -31,6 +31,7 @@ namespace s21{
         size_type size();
 
         void push(const_reference);
+        template <class... Args> void insert_many_back(Args&&...);
         void pop();
         void swap(queue&);
     };

@@ -13,6 +13,11 @@ TEST(Multiset_Count, Common){
     ASSERT_TRUE(__loop_test(__count_test));
 }
 
+TEST(Multiset_InsertMany, Common){
+    s21::multiset<int> __s;
+    __s.insert_many(1,1,1,1);
+}
+
 TEST(Multiset_LowerBound, Common){
     std::function<bool(std::size_t)> __lb_test = [](std::size_t __test_id){
         std::multiset<int> s;

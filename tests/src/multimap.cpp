@@ -1,4 +1,4 @@
-#include "../s21_containers_tests.hpp"
+#include "../tests.hpp"
 
 TEST(Multimap_Constructor, Default){
 

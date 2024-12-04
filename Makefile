@@ -33,7 +33,7 @@ all: $(TARGET)
 	./$(TARGET)
 
 map:clean
-	$(CC) $(FLAGS) ./tests/src/map_tests.cpp ./tests/src/tests.cpp $(LGTEST) $(IGTEST)
+	$(CC) $(FLAGS) ./tests/src/map.cpp ./tests/src/tests.cpp $(LGTEST) $(IGTEST)
 	./a.out
 mmap:clean
 	$(CC) $(FLAGS) ./tests/src/multimap.cpp ./tests/src/tests.cpp $(LGTEST) $(IGTEST)

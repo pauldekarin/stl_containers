@@ -3,6 +3,7 @@
 #include <memory>
 #include <iostream>
 #include <iterator>
+#include <vector>
 
 namespace s21{
     template <typename _T>
@@ -19,6 +20,9 @@ namespace s21{
         __vec_iterator();
         __vec_iterator(pointer __p = nullptr);
         __vec_iterator(const __vec_iterator &__i);
+
+        template <typename _U, typename = std::enable_if<std::is_same<const _U, _T>::value>>
+        __vec_iterator(const __vec_iterator<_U>&);
 
         __vec_iterator& operator++();
 
@@ -46,9 +50,8 @@ namespace s21{
         pointer operator->();
 
     
-    protected:
         pointer __ptr__;
-
+    private:
     };
 
     template <typename _T, class _Allocator = std::allocator<_T>>
@@ -60,6 +63,7 @@ namespace s21{
         using reference         =       typename alloc_type::reference;
         using const_reference   =       typename alloc_type::const_reference;
         using pointer           =       typename alloc_type::pointer;
+        using const_pointer     =       typename alloc_type::const_pointer;
         using iterator          =       __vec_iterator<value_type>;
         using const_iterator    =       __vec_iterator<const value_type>;
         using reverse_iterator  =       std::reverse_iterator<iterator>;
@@ -104,6 +108,8 @@ namespace s21{
         void shrink_to_fit();
 
         iterator insert(iterator pos, const_reference value);	
+        template <class... Args> iterator insert_many(const_iterator, Args&&...);
+        template <class... Args> void insert_many_back(Args&&...);
         void clear();	
         void erase(iterator pos);	
         void push_back(const_reference value);	

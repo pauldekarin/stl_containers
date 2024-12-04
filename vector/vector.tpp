@@ -167,6 +167,22 @@ namespace s21{
         return std::next(this->begin(), __n);
     }
 
+    template <typename _T, class _Allocator>
+    template <class... Args>
+    typename vector<_T, _Allocator>::iterator vector<_T, _Allocator>::insert_many(const_iterator __pos, Args&&... args) {
+        static_assert((std::is_convertible<Args, _T>::value && ...), "insert_many must be _T");
+        ((__pos = insert(__pos, std::forward<Args>(args)), ++__pos),...);
+        return std::prev(__pos);
+    }
+
+    template <typename _T, class _Allocator>
+    template <class... Args>
+    void vector<_T,_Allocator>::insert_many_back(Args&&... args){
+        static_assert((std::is_convertible<Args, _T>::value && ...), "insert_many_back must be convertible");
+        ((push_back(std::forward<Args>(args))),...);
+    }
+
+
     template<typename _T, class _Allocator>
     void vector<_T, _Allocator>::clear(){
         for(size_type __i = 0; __i < this->size(); __i++){

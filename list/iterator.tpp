@@ -13,7 +13,7 @@ __list_iterator<_T>::get() const{
 }
 
 template <typename _T>
-template <typename _U>
+template <typename _U, typename>
 __list_iterator<_T>::__list_iterator(const __list_iterator<_U>& __it)
     : n_(reinterpret_cast<__node*>(__it.n_)) {}
 

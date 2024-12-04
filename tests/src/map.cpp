@@ -16,3 +16,8 @@ TEST(Map_Find, Default){
 
     auto it = __m.contains(1);
 }
+TEST(Map_InsertMany, Common){
+    s21::map<int,int> __m;
+    __m.insert_many(std::make_pair(1,2));
+    std::cout << __m;
+}

@@ -56,6 +56,13 @@ namespace s21{
         this->c_.push_back(__ref);
     }
 
+    template <typename _T, class _Container>
+    template <class... Args>
+    void stack<_T, _Container>::insert_many_back(Args&&... args){
+        static_assert((std::is_convertible<Args, _T>::value && ...), "stack insert_many_back must be convertible args");
+        ((push(std::forward<Args>(args))), ...);
+    }
+
     template <typename _T, class _Container>        
     void stack<_T, _Container>::pop(){
         this->c_.pop_back();

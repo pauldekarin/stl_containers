@@ -119,6 +119,22 @@ namespace s21{
     }
     
     template <typename _T, class _Compare, class _Allocator>
+    template <class... Args>
+    std::pair<typename set<_T, _Compare, _Allocator>::iterator, bool>
+    set<_T, _Compare, _Allocator>::insert_many(Args&&... args){
+        static_assert((std::is_convertible<Args, _T>::value && ...), "set insert_many must be convertible arguments");
+        std::pair<iterator, bool> __res = {end(), false};
+        std::pair<iterator, bool> __it = {end(), false};
+        (([&](){
+            std::pair<iterator, bool> __it = insert(std::forward<Args>(args));
+            if(__it.second){
+                __res = __it;
+            }
+        }()),...);
+        return __res;
+    }
+
+    template <typename _T, class _Compare, class _Allocator>
     void 
     set<_T, _Compare, _Allocator>::erase(iterator __pos){
         if(this->empty()){

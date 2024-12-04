@@ -14,10 +14,16 @@ namespace s21{
     __vec_iterator<_T>::__vec_iterator(const __vec_iterator<_T> &__i): __ptr__(__i.__ptr__){}
 
     template <typename _T>
+    template <typename _U, typename>
+    __vec_iterator<_T>::__vec_iterator(const __vec_iterator<_U>& __i):__ptr__(const_cast<pointer>(__i.__ptr__)){}
+
+    template <typename _T>
     __vec_iterator<_T>& __vec_iterator<_T>::operator++(){
         this->__ptr__++;
         return *this;
     }
+
+    
 
     template <typename _T>
     __vec_iterator<_T> __vec_iterator<_T>::operator++(int){

@@ -16,6 +16,36 @@ TEST_F(ListTester, Insert_Common){
     ASSERT_EQ(__cmp(l, __il), true);
 }
 
+TEST_F(ListTester, InsertMany){
+    __il.insert_many(__il.begin(), 1,2,3,4);
+    auto it = __il.insert_many(__il.begin(), 4,2,3,4);
+    __il.insert_many(it, 100,200);
+    
+    std::list<int> l({4,2,3,100,200,4,1,2,3,4});
+
+    ASSERT_TRUE(__cmp(__il, l));
+}
+
+
+TEST_F(ListTester, InsertManyBack){
+    __il.insert_many_back(1,2,3,4);
+    __il.insert_many_back(4,3,2,1);
+    
+    std::list<int> l({1,2,3,4,4,3,2,1});
+
+    ASSERT_TRUE(__cmp(__il, l));
+}
+
+TEST_F(ListTester, InsertManyFront){
+    __il.insert_many_front(1,2,3,4);
+    __il.insert_many_front(100,200);
+    
+    std::list<int> l({100,200,1,2,3,4});
+    std::cout << __il << std::endl;
+
+    ASSERT_TRUE(__cmp(__il, l));
+}
+
 TEST_F(ListTester, Clear){
     __il.insert(__il.begin(),1);
     __il.insert(__il.begin(),2);

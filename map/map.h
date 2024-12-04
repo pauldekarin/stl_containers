@@ -175,6 +175,8 @@ namespace s21{
          */
         std::pair<iterator, bool> insert_or_assign(const key_type&, const mapped_type&);
 
+        template <class... Args> std::pair<iterator, bool> insert_many(Args&&...);
+
         /**
          * Erases the element at the specified position.
          * @param pos - Iterator to the element to erase.

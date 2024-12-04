@@ -45,6 +45,7 @@ namespace s21{
         size_type max_size()	;
         void clear();
         std::pair<iterator, bool> insert(const_reference);
+        template <class... Args> std::pair<iterator, bool> insert_many(Args&&...);
         void erase(iterator);
         void erase(iterator, iterator);
         void erase(const_reference);

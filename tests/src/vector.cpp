@@ -30,6 +30,20 @@ TEST(Vector_Size, Common){
     ASSERT_TRUE(__loop_test(__push_test));
 }
 
+TEST(Vector_InsertMany, Common){
+    s21::vector<int> __v({1,2,3});
+    s21::vector<int>::const_iterator it =  __v.begin();
+    auto f = __v.insert_many(it, 10);
+    std::cout << *f << std::endl;
+}
+
+TEST(Vector_InsertManyBack, Common){
+    s21::vector<int> __v({1,2,3});
+
+    __v.insert_many_back(40,"123");
+    std::cout << __v << std::endl;
+}
+
 
 TEST_F(VectorTester, Constructor){
     s21::vector<int> __l({1,2,3,4});

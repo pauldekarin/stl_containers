@@ -145,6 +145,16 @@ namespace s21{
     }
 
     template <typename _Key, typename _Value, class _Compare, class _Allocator>
+    template <class... Args>
+    std::pair<typename map<_Key, _Value, _Compare, _Allocator>::iterator, bool>
+    map<_Key, _Value, _Compare, _Allocator>::insert_many(Args&&... args){
+        static_assert((std::is_constructible<value_type, Args&&>::value && ...), "map insert_many must be convertible std::pair<key_type, value_type>");
+        std::pair<iterator, bool> __res = {end(), false};
+        ((__res = insert(std::forward<Args>(args))), ...);
+        return __res;
+    }
+
+    template <typename _Key, typename _Value, class _Compare, class _Allocator>
     void 
     map<_Key, _Value, _Compare, _Allocator>::erase(iterator __pos){
         if(this->empty()){
