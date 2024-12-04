@@ -63,7 +63,9 @@ Additional containers and methods:
 
 # Requirements
 GCC compiler
+
 CMake (optional for advanced configuration)
+
 Google Test framework for unit tests
 
 # License
