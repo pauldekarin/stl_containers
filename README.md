@@ -44,8 +44,9 @@ To test the library, use the provided Makefile:
   ```
 Clean the build files:
 
-sh
+```sh
 make clean
+```
 ## Bonus Implementations
 Additional containers and methods:
 
