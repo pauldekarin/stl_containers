@@ -249,6 +249,7 @@ namespace s21{
     template <typename _T, class _Allocator>
     void vector<_T, _Allocator>::__move(vector<_T, _Allocator> &&__oth){
         if(this != &__oth){
+            this->__destroy();
 
             this->begin_ = std::move(__oth.begin_);
             this->end_ = std::move(__oth.end_);
