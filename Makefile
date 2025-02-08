@@ -1,5 +1,5 @@
 CC=g++ -std=c++17
-FLAGS=#-Wall -Werror -Wextra
+FLAGS=-Wall -Werror -Wextra
 GCOV_FLAGS=-fprofile-arcs -ftest-coverage 
 
 OBJ_DIR = ./obj
@@ -47,7 +47,7 @@ deq:clean
 	$(CC) $(FLAGS) ./tests/src/deque.cpp ./tests/src/tests.cpp $(LGTEST) $(IGTEST)
 	./a.out
 stack: clean
-	$(CC) $(FLAGS) ./tests/src/stack_tests.cpp ./tests/src/tests.cpp $(LGTEST) $(IGTEST)
+	$(CC) $(FLAGS) ./tests/src/stack.cpp ./tests/src/tests.cpp $(LGTEST) $(IGTEST)
 	./a.out
 set: clean
 	$(CC) $(FLAGS) ./tests/src/set.cpp ./tests/src/tests.cpp $(LGTEST) $(IGTEST)
@@ -71,6 +71,9 @@ test:clean $(SRC_OBJECTS) $(TEST_OBJECTS)
 	$(CC) $(FLAGS)  $(SRC_OBJECTS) $(TEST_OBJECTS) -o $(TARGET)_test $(LGTEST)
 	./$(TARGET)_test
 
+que: clean
+	$(CC) $(FLAGS) ./tests/src/queue.cpp ./tests/src/tests.cpp $(LGTEST) $(IGTEST)
+	./a.out
 
 $(TARGET): $(SRC_OBJECTS)
 	$(CC) $(FLAGS) $^ -o $(TARGET)
@@ -96,7 +99,7 @@ clean:
 .PHONY: all clean
 
 gcov_report:
-	$(CC) $(FLAGS) $(GCOV_FLAGS) --coverage -o gcov_report.out  ./tests/src/tests.cpp ./tests/src/vector.cpp $(LGTEST) $(IGTEST)
+	$(CC) $(FLAGS) $(GCOV_FLAGS) --coverage -o gcov_report.out  ./tests/src/*.cpp  $(LGTEST) $(IGTEST)
 	./gcov_report.out
 	lcov -t "$(TARGET)" -o $(TARGET).info -c -d . --ignore-errors mismatch,inconsistent,corrupt
 	genhtml -o report --ignore-errors inconsistent,inconsistent $(TARGET).info -q

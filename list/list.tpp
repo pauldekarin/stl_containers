@@ -1,4 +1,4 @@
-#pragma
+#pragma once
 #include "list.h"
 
 namespace s21{
@@ -73,7 +73,7 @@ namespace s21{
 
     template <typename _T, class _Allocator>    //List Capacity
     typename list<_T, _Allocator>::size_type 
-    list<_T, _Allocator>::size() const{
+    list<_T, _Allocator>::size() const noexcept{
         return this->size_;
     }
 

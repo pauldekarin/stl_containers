@@ -1,5 +1,21 @@
 #include "../tests.hpp"
 
+TEST(Set_Constructor, Common){
+    s21::set<int> __s ({1,2,3,4});
+    s21::set<int> __moved_set(std::move(__s));
+
+    ASSERT_TRUE(__s.empty());
+    ASSERT_FALSE(__moved_set.empty());
+    
+    std::set<int> s({1,2,3,4});
+
+    ASSERT_TRUE(__cmp(s, __moved_set));
+
+    s21::set<int> __r(__moved_set);
+    std::cout << __r << std::endl;
+    ASSERT_TRUE(__cmp(__r, __moved_set));
+}
+
 TEST(Set_Find, Common){
     s21::set<int> __s({1,2,3,4,5});
 
@@ -12,12 +28,12 @@ TEST(Set_Find, Common){
     __res = __s.find(100);
     ASSERT_TRUE(__res == __s.end());
 
-    ASSERT_EQ(__s.count(2), 1);
-    ASSERT_EQ(__s.count(105), 0);
+    ASSERT_TRUE(__s.count(2) ==  1);
+    ASSERT_TRUE(__s.count(105) == 0);
 }
 
 TEST(Set_LowerBound, Common){
-    std::function<bool(std::size_t)> __lb_test = [](std::size_t __test_id){
+    std::function<bool(std::size_t)> __lb_test = []([[maybe_unused]] std::size_t __test_id){
         std::set<int> s;
         s21::set<int> __s;
 
@@ -46,7 +62,7 @@ TEST(Set_InsertMany, Common){
 }
 
 TEST(Set_UpperBound, Common){
-    std::function<bool(std::size_t)> __ub_test = [](std::size_t __test_id){
+    std::function<bool(std::size_t)> __ub_test = []([[maybe_unused]] std::size_t __test_id){
         std::set<int> s;
         s21::set<int> __s;
 
@@ -75,7 +91,7 @@ TEST(Set_MaxSize, Common){
 }
 
 TEST(Set_Size, Common){
-    std::function<bool(std::size_t)> __sz_test = [](std::size_t __test_id){
+    std::function<bool(std::size_t)> __sz_test = []([[maybe_unused]] std::size_t __test_id){
         s21::set<int> __s;
         std::set<int> s;
 
@@ -194,7 +210,7 @@ TEST(Set_Move, Common){
 }
 
 TEST(Set_Iterators, Common){
-    std::function<bool(std::size_t)> __fn = [](std::size_t __test_id){
+    std::function<bool(std::size_t)> __fn = []([[maybe_unused]] std::size_t __test_id){
         s21::set<int> __s;
         std::set<int> s;
 

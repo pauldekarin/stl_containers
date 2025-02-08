@@ -30,8 +30,7 @@ namespace s21{
     template <typename _T, class _Container>
     queue<_T, _Container>& queue<_T, _Container>::operator=(queue &&__q){
         if(this != &__q){
-            this->c_ = __q.c_;
-            __q.c_ = _Container();
+            this->c_ = std::move(__q.c_);
         }
         return *this;
     }

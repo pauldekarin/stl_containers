@@ -134,7 +134,9 @@ namespace s21{
     template <typename _Key, typename _Value, class _Compare, class _Allocator>
     void 
     multimap<_Key, _Value, _Compare, _Allocator>::swap(multimap& __oth){
-
+        if(this != &__oth){
+            
+        }
     }
 
     template <typename _Key, typename _Value, class _Compare, class _Allocator>

@@ -80,6 +80,14 @@ namespace s21{
     }
 
     template <typename _T>
+    __vec_iterator<_T>& __vec_iterator<_T>::operator=(const __vec_iterator<_T>& __oth){
+        if(this != &__oth){
+            this->__ptr__ = __oth.__ptr__;
+        }
+        return *this;
+    }
+
+    template <typename _T>
     typename __vec_iterator<_T>::reference __vec_iterator<_T>::operator*(){
         return *(this->__ptr__);
     }

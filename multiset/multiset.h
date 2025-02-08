@@ -34,12 +34,8 @@ namespace s21{
         multiset& operator=(multiset &&s)	;
         iterator begin()	;
         iterator end()	;
-        iterator begin() const;
-        iterator end() const;
         reverse_iterator rbegin();
         reverse_iterator rend();
-        reverse_iterator rbegin() const;
-        reverse_iterator rend() const;
         bool empty();
         size_type size();
         size_type max_size()	;

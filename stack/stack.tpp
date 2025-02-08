@@ -8,19 +8,17 @@ namespace s21{
     }
 
     template <typename _T, class _Container>        
-    stack<_T, _Container>::stack(std::initializer_list<value_type> &__il){
+    stack<_T, _Container>::stack(std::initializer_list<value_type> const &__il){
         this->c_ = _Container(__il);
     }
 
     template <typename _T, class _Container>        
-    stack<_T, _Container>::stack(const stack<_T, _Container>& __s){
-        this->c_ = _Container(__s);
+    stack<_T, _Container>::stack(const stack<_T, _Container>& __s): c_(__s.c_){
     }
 
     template <typename _T, class _Container>        
     stack<_T, _Container>::stack(stack<_T, _Container>&& __s){
-        this->c_ = __s.c_;
-        __s.c_ = _Container();
+        this->c_ = std::move(__s.c_);
     }
 
     template <typename _T, class _Container>        
@@ -31,9 +29,9 @@ namespace s21{
     template <typename _T, class _Container>        
     stack<_T, _Container>& stack<_T, _Container>::operator=(stack &&__s){
         if(this != &__s){
-            this->c_ = __s.c_;
-            __s.c_ = _Container();
+            this->c_ = std::move(__s.c_);
         }
+        return *this;
     }
 
     template <typename _T, class _Container>        
@@ -69,8 +67,8 @@ namespace s21{
     }
 
     template <typename _T, class _Container>        
-    void stack<_T, _Container>::swap(stack &&__s){
-        std::swap(this->c_, __s.c_);
+    void stack<_T, _Container>::swap(stack &__s){
+        std::swap(__s.c_, this->c_);
     }
 
 }

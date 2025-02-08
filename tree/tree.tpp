@@ -82,6 +82,7 @@ namespace s21
         this->size_++;
         if(this->sentinel_ == nullptr){
             this->sentinel_ = this->_create_node(value_type());
+            this->sentinel_->is_sentinel = true;
         }
 
         if(this->root_ == nullptr){
@@ -199,14 +200,27 @@ namespace s21
         this->_display_node(this->root_);
     }
 
+    template <typename _T, class _Compare, class _Allocator>
+    void
+    __tree<_T, _Compare, _Allocator>::_copy(const __tree& oth){
+        if(this != &oth){
+            _copy(&root_, oth.root_);
+        }
+    }
+
     template <typename _T, class _Compare, class _Allocator>    
     void 
     __tree<_T, _Compare, _Allocator>::_copy(node_pointer *__src, node_pointer __dst, node_pointer __parent){
         if(__dst == nullptr){
             return;
         }
-
+        
         *__src = this->_create_node(__dst->value_, __parent);
+        (*__src)->is_sentinel = __dst->is_sentinel;
+        if(__dst->is_sentinel){
+            this->sentinel_ = *__src;
+        }
+        
         this->_copy(&((*__src)->left_), __dst->left_, *__src);
         this->_copy(&((*__src)->right_), __dst->right_, *__src);
     }

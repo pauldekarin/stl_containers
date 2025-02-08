@@ -38,6 +38,7 @@ namespace s21{
 
         __vec_iterator operator+(difference_type);
 
+        __vec_iterator& operator=(const __vec_iterator&);
 
         difference_type operator-(__vec_iterator&);
 

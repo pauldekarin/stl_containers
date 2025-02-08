@@ -16,13 +16,11 @@ TEST_F(DequeTester, Iterators){
 
     s21::deque<int>::const_iterator __it = __d.begin();
     s21::deque<int>::reverse_iterator __rit = __d.rbegin();
-    s21::deque<int>::reverse_iterator __rjt = __d.rend();
 
     std::deque<int> d({1,2,3,4});
 
     std::deque<int>::const_iterator it = d.begin();
     std::deque<int>::reverse_iterator rit = d.rbegin();
-    std::deque<int>::reverse_iterator rjt = d.rend();
 
     ASSERT_EQ(*it, *__it);
     ASSERT_EQ(*rit, *__rit);

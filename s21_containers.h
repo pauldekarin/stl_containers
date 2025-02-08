@@ -9,6 +9,6 @@
 #include "priority_queue/priority_queue.h"
 #include "tree/tree.h"
 #include "multimap/multimap.h"
-#include "array/array.h"
 #include "set/set.h"
-#include "multiset/multiset.h"
+
+#include "s21_containersplus.h"

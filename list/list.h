@@ -86,7 +86,7 @@ namespace s21{
 
         const_reference back();
 
-        size_type size() const;
+        size_type size() const noexcept;
         
         size_type max_size() const;
 

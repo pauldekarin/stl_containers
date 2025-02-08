@@ -19,7 +19,7 @@ namespace s21{
     
     public:
         stack();
-        stack(std::initializer_list<value_type> &);
+        stack(std::initializer_list<value_type> const &);
         stack(const stack&);
         stack(stack&&);
         ~stack();
@@ -30,7 +30,7 @@ namespace s21{
         void push(const_reference);
         template <class... Args> void insert_many_back(Args&&...);
         void pop();
-        void swap(stack&&);
+        void swap(stack&);
     };
 }
 

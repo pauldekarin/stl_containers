@@ -52,11 +52,11 @@ TEST_F(ListTester, Clear){
     __il.insert(__il.begin(),3);
     __il.clear();
 
-    ASSERT_EQ(__il.size(), 0);
+    ASSERT_TRUE(__il.size() == 0);
 }
 
 TEST_F(ListTester, Size_Empty){
-    ASSERT_EQ(__il.size(), 0);
+    ASSERT_TRUE(__il.size() == 0);
 }
 
 TEST_F(ListTester, Size_Increments){
@@ -64,7 +64,7 @@ TEST_F(ListTester, Size_Increments){
     __il.insert(__il.begin(),2);
     __il.insert(__il.begin(),3);
 
-    ASSERT_EQ(__il.size(), 3);
+    ASSERT_TRUE(__il.size() ==  3);
 }
 
 TEST_F(ListTester, Erase){

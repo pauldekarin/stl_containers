@@ -27,11 +27,13 @@ public:
         __node *right_ = nullptr;
         __node *parent_ = nullptr;
         
+        bool is_sentinel = false;
+
         value_type value_;
         __node():value_(value_type()){}
         __node(const_reference __ref):value_(__ref){}
 
-        __node(const_reference __ref, __node *__parent):value_(__ref), parent_(__parent){}
+        __node(const_reference __ref, __node *__parent):parent_(__parent), value_(__ref){}
 
         __node (const __node &__n):left_(__n.left_), right_(__n.right_), parent_(__n.parent_), value_(__n.value_){}
 
@@ -148,6 +150,7 @@ namespace s21
         void display();
     // private:
     public:
+        void _copy(const __tree& oth);
         void _copy(node_pointer *__src, node_pointer __dst, node_pointer __parent = nullptr);
 
         template <class _InputIter>

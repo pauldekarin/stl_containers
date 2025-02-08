@@ -39,8 +39,8 @@ namespace s21{
         const_reference front();
         const_reference back();
         iterator data();	
-        iterator begin();
-        iterator end();
+        iterator begin() const;
+        iterator end() const;
         bool empty();
         size_type size();	
         size_type max_size();

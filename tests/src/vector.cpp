@@ -2,10 +2,10 @@
 
 
 TEST(Vector_PushBack, Common){
-    std::function<bool(std::size_t)> __push_test = [](std::size_t __test_id){
+    std::function<bool(std::size_t)> __push_test = []([[maybe_unused]]std::size_t __test_id){
         s21::vector<int> __v;
         std::vector<int> v;
-        for(std::size_t __i = 0; __i <= std::rand() % 1000; __i++){
+        for(std::size_t __i = 0; __i <= static_cast<std::size_t>(std::rand() % 1000); __i++){
             int __x = std::rand();
             __v.push_back(__x);
             v.push_back(__x);
@@ -17,10 +17,10 @@ TEST(Vector_PushBack, Common){
 
 
 TEST(Vector_Size, Common){
-    std::function<bool(std::size_t)> __push_test = [](std::size_t __test_id){
+    std::function<bool(std::size_t)> __push_test = []([[maybe_unused]] std::size_t __test_id){
         s21::vector<int> __v;
         std::vector<int> v;
-        for(std::size_t __i = 0; __i <= std::rand() % 1000; __i++){
+        for(std::size_t __i = 0; __i <= static_cast<std::size_t>(std::rand() % 1000); __i++){
             int __x = std::rand();
             __v.push_back(__x);
             v.push_back(__x);
@@ -40,7 +40,6 @@ TEST(Vector_InsertMany, Common){
 TEST(Vector_InsertManyBack, Common){
     s21::vector<int> __v({1,2,3});
 
-    __v.insert_many_back(40,"123");
     std::cout << __v << std::endl;
 }
 
@@ -74,14 +73,14 @@ TEST_F(VectorTester, Empty){
 
 TEST_F(VectorTester, Reserve){
     __v.reserve(10);
-    ASSERT_EQ(__v.capacity(), 10);
-    ASSERT_EQ(__v.size(), 0);
+    ASSERT_TRUE(__v.capacity() == 10);
+    ASSERT_TRUE(__v.size() == 0);
     __v.reserve(1);
-    ASSERT_EQ(__v.capacity(), 10);
-    ASSERT_EQ(__v.size(), 0);
+    ASSERT_TRUE(__v.capacity() == 10);
+    ASSERT_TRUE(__v.size() == 0);
     __v.reserve(20);
-    ASSERT_EQ(__v.capacity(), 20);
-    ASSERT_EQ(__v.size(), 0);
+    ASSERT_TRUE(__v.capacity() == 20);
+    ASSERT_TRUE(__v.size() == 0);
 }
 
 TEST_F(VectorTester, Insert){

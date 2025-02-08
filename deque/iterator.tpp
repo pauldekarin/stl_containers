@@ -5,13 +5,13 @@ __deque_iterator<_T, buff_size>::__deque_iterator(){}
 
 template <typename _T, size_t buff_size>
 template <typename _U>
-__deque_iterator<_T, buff_size>::__deque_iterator(const __deque_iterator<_U, buff_size> &__d):begin_(__d.begin_), end_(__d.end_), current_(__d.current_), map_(const_cast<__map_pointer>(__d.map_)){}
+__deque_iterator<_T, buff_size>::__deque_iterator(const __deque_iterator<_U, buff_size> &__d):current_(__d.current_),begin_(__d.begin_), end_(__d.end_),  map_(const_cast<__map_pointer>(__d.map_)){}
 
 template <typename _T, size_t buff_size>
 __deque_iterator<_T, buff_size>::__deque_iterator(pointer __begin, pointer __end, pointer __current, __map_pointer __map):begin_(__begin), end_(__end), current_(__current),map_(__map){}
 
 template <typename _T, size_t buff_size>
-__deque_iterator<_T, buff_size>::__deque_iterator(const __deque_iterator &__d):begin_(__d.begin_), end_(__d.end_), current_(__d.current_), map_(__d.map_){}
+__deque_iterator<_T, buff_size>::__deque_iterator(const __deque_iterator &__d):current_(__d.current_), begin_(__d.begin_), end_(__d.end_), map_(__d.map_){}
 
 template <typename _T, size_t buff_size>
 void 
@@ -43,7 +43,7 @@ __deque_iterator<_T, buff_size>
 __deque_iterator<_T, buff_size>::operator-(difference_type __n){
     __deque_iterator __it(*this);
 
-    while(__n >= buff_size){
+    while(__n >= static_cast<difference_type>(buff_size)){
         __it.map_--;
         __n -= buff_size;
     }
@@ -73,12 +73,12 @@ __deque_iterator<_T, buff_size>
 __deque_iterator<_T, buff_size>::operator+(difference_type __n){
     __deque_iterator __it(*this);
 
-    while(__n > buff_size){
+    while(__n > static_cast<difference_type>(buff_size)){
         __it.map_++;
         __n -= buff_size;
     }
 
-    if(std::distance(__it.begin_, __it.current_) + __n >= buff_size){
+    if(std::distance(__it.begin_, __it.current_) + __n >= static_cast<difference_type>(buff_size)){
         __it.map_++;
         __n -= std::distance(__it.current_, __it.end_) + 1;
     }else{

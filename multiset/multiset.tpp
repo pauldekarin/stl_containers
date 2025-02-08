@@ -50,18 +50,6 @@ namespace s21{
     }	
 
     template <typename _T, class _Compare, class _Allocator>
-    typename multiset<_T, _Compare, _Allocator>::iterator 
-    multiset<_T, _Compare, _Allocator>::begin() const{
-        return this->tree_.begin();            
-    }
-
-    template <typename _T, class _Compare, class _Allocator>
-    typename multiset<_T, _Compare, _Allocator>::iterator 
-    multiset<_T, _Compare, _Allocator>::end() const{
-        return this->tree_.end();
-    }
-
-    template <typename _T, class _Compare, class _Allocator>
     typename multiset<_T, _Compare, _Allocator>::reverse_iterator 
     multiset<_T, _Compare, _Allocator>::rbegin(){
         return reverse_iterator(this->tree_.end());
@@ -70,18 +58,6 @@ namespace s21{
     template <typename _T, class _Compare, class _Allocator>
     typename multiset<_T, _Compare, _Allocator>::reverse_iterator 
     multiset<_T, _Compare, _Allocator>::rend(){
-        return reverse_iterator(this->tree_.begin());
-    }
-
-    template <typename _T, class _Compare, class _Allocator>
-    typename multiset<_T, _Compare, _Allocator>::reverse_iterator 
-    multiset<_T, _Compare, _Allocator>::rbegin() const{
-        return reverse_iterator(this->tree_.end());
-    }
-    
-    template <typename _T, class _Compare, class _Allocator>
-    typename multiset<_T, _Compare, _Allocator>::reverse_iterator 
-    multiset<_T, _Compare, _Allocator>::rend() const{
         return reverse_iterator(this->tree_.begin());
     }
     

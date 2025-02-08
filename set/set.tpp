@@ -19,8 +19,9 @@ namespace s21{
     
     template <typename _T, class _Compare, class _Allocator>
     set<_T, _Compare, _Allocator>::set(set &&s){
-        this->tree_._copy(s.tree_);
-        s.tree_.clear();
+        if(this != &s){
+            this->tree_ = std::move(s.tree_);
+        }
     }
     
     template <typename _T, class _Compare, class _Allocator>

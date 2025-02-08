@@ -28,7 +28,7 @@ typename = typename std::enable_if
                     typename _RContainer::value_type >::value &&
     is_iterable<_LContainer>::value && 
     is_iterable<_RContainer>::value >::type >
-void __display_difference(const _LContainer &__lhs, const _RContainer &__rhs){
+void __display_difference(_LContainer &__lhs, _RContainer &__rhs){
     typename _LContainer::const_iterator it = __lhs.begin();
     typename _RContainer::const_iterator jt = __rhs.begin();
 
@@ -57,7 +57,7 @@ __fill(_LContainer &__lhs, _RContainer &__rhs, std::size_t __max_size = 500, val
         __i < __size;
         __i++
     ){
-        value_type __r = static_cast<value_type>(std::rand() % 100);
+        value_type __r = static_cast<value_type>(std::rand() % __max_value);
 
         __lhs.insert(__r);
         __rhs.insert(__r);
@@ -101,7 +101,7 @@ operator<<(std::ostream &os, const std::pair<_Tp, _Up> &p){
 
 template <typename _Container, typename value_type = typename _Container::value_type>
 typename std::enable_if<is_iterable<_Container>::value && !std::is_same<std::string, _Container>::value, std::ostream& >::type
-operator<<(std::ostream &os, const _Container &__c){
+operator<<(std::ostream &os, _Container &__c){
     os << "[ ";
     for(
         typename _Container::const_iterator __it = __c.begin();

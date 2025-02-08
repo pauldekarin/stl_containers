@@ -80,12 +80,12 @@ namespace s21{
     }	
     template <typename _T, std::size_t _N>
     typename array<_T,_N>::iterator
-    array<_T, _N>::begin(){
+    array<_T, _N>::begin() const{
         return iterator(this->data_);
     }
     template <typename _T, std::size_t _N>
     typename array<_T,_N>::iterator
-    array<_T, _N>::end(){
+    array<_T, _N>::end() const{
         return iterator(this->data_ + _N);
     }
     template <typename _T, std::size_t _N>

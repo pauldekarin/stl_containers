@@ -24,7 +24,7 @@ namespace s21{
 
     template <typename _Key, typename _Value, class _Compare, class _Allocator>
     map<_Key, _Value, _Compare, _Allocator>::map(map&& __oth){
-        this->tree_ = std::move(__oth.tree);
+        this->tree_ = std::move(__oth.tree_);
     }
 
     template <typename _Key, typename _Value, class _Compare, class _Allocator>
@@ -104,7 +104,7 @@ namespace s21{
     template <typename _Key, typename _Value, class _Compare, class _Allocator>
     typename map<_Key, _Value, _Compare, _Allocator>::size_type 
     map<_Key, _Value, _Compare, _Allocator>::max_size() const{
-        return this->tree_->max_size();
+        return this->tree_.max_size();
     }
 
     template <typename _Key, typename _Value, class _Compare, class _Allocator>
@@ -132,11 +132,10 @@ namespace s21{
     template <typename _Key, typename _Value, class _Compare, class _Allocator>
     std::pair<typename map<_Key, _Value, _Compare, _Allocator>::iterator, bool> 
     map<_Key, _Value, _Compare, _Allocator>::insert_or_assign(const key_type& __key, const mapped_type& __val){
-        reference __ref(__key, __val);
-        iterator __it = this->tree_.find(__ref);
+        iterator __it = this->tree_.find(__key);
 
         if(__it == this->tree_.end()){
-            __it = this->tree_.insert(__ref);
+            __it = this->tree_.insert({__key, __val});
         }else{
             __it->second = __val;
         }
@@ -171,7 +170,9 @@ namespace s21{
     template <typename _Key, typename _Value, class _Compare, class _Allocator>
     void 
     map<_Key, _Value, _Compare, _Allocator>::swap(map& __oth){
-
+        if(this != &__oth){
+            std::swap(__oth.tree_, this->tree_);
+        }
     }
 
     template <typename _Key, typename _Value, class _Compare, class _Allocator>

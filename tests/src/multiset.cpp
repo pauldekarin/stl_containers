@@ -1,7 +1,7 @@
 #include "../tests.hpp"
 
 TEST(Multiset_Count, Common){
-    std::function<bool(std::size_t)> __count_test = [](std::size_t __test_id){
+    std::function<bool(std::size_t)> __count_test = []([[maybe_unused]] std::size_t __test_id){
         std::multiset<int> s;
         s21::multiset<int> __s;
 
@@ -19,7 +19,7 @@ TEST(Multiset_InsertMany, Common){
 }
 
 TEST(Multiset_LowerBound, Common){
-    std::function<bool(std::size_t)> __lb_test = [](std::size_t __test_id){
+    std::function<bool(std::size_t)> __lb_test = []([[maybe_unused]] std::size_t __test_id){
         std::multiset<int> s;
         s21::multiset<int> __s;
 
@@ -42,7 +42,7 @@ TEST(Multiset_LowerBound, Common){
 }
 
 TEST(Multiset_UpperBound, Common){
-    std::function<bool(std::size_t)> __ub_test = [](std::size_t __test_id){
+    std::function<bool(std::size_t)> __ub_test = []([[maybe_unused]] std::size_t __test_id){
         std::multiset<int> s;
         s21::multiset<int> __s;
 
@@ -71,7 +71,7 @@ TEST(Multiset_MaxSize, Common){
 }
 
 TEST(Multiset_Size, Common){
-    std::function<bool(std::size_t)> __sz_test = [](std::size_t __test_id){
+    std::function<bool(std::size_t)> __sz_test = []([[maybe_unused]] std::size_t __test_id){
         s21::multiset<int> __s;
         std::multiset<int> s;
 
@@ -91,7 +91,7 @@ TEST(Multiset_Size, Common){
 }
 
 TEST(Multiset_Swap, Common){
-    std::function<bool(std::size_t)> __swap_test = [](std::size_t __test_id){
+    std::function<bool(std::size_t)> __swap_test = []([[maybe_unused]] std::size_t __test_id){
         std::multiset<int> s;
         s21::multiset<int> __s;
 
@@ -190,7 +190,7 @@ TEST(Multiset_Move, Common){
 }
 
 TEST(Multiset_Iterators, Common){
-    std::function<bool(std::size_t)> __fn = [](std::size_t __test_id){
+    std::function<bool(std::size_t)> __fn = []([[maybe_unused]] std::size_t __test_id){
         s21::multiset<int> __s;
         std::multiset<int> s;
 
@@ -200,6 +200,32 @@ TEST(Multiset_Iterators, Common){
     };
 
     ASSERT_TRUE(__loop_test(__fn));
+
+    s21::multiset<int> s({1,2,3});
+
+    ASSERT_TRUE(*s.begin() == 1);
+    ASSERT_TRUE(*std::prev(s.end()) == 3);
+}
+
+TEST(Multiset_FindContains, Default){
+    s21::multiset<int> s({1,2,3});
+    
+    ASSERT_TRUE(std::next(s.begin()) == s.find(2));
+    ASSERT_TRUE(s.end() == s.find(4));
+    ASSERT_TRUE(*s.find(1) == 1);
+
+    ASSERT_TRUE(s.contains(3));
+    ASSERT_FALSE(s.contains(10));
+}
+
+TEST(Multiset_Iterators, Default){
+    s21::multiset<int> s({1,2,3});
+
+    s21::multiset<int>::const_iterator it = s.begin();
+    s21::multiset<int>::const_iterator jt = std::prev(s.end());
+
+    ASSERT_TRUE(*it == 1);
+    ASSERT_TRUE(*jt == 3);
 }
 
 TEST(Multiset_Erase, Iterator){
@@ -281,3 +307,23 @@ TEST(Multiset_Erase, Iterators){
 
     ASSERT_TRUE(__loop_test(__erase_by_iterators));
 }
+
+TEST(Multiset_Constructor, Default){
+    s21::multiset<int> s1({1,2,3});
+    s21::multiset<int> s2(s1);
+    std::multiset<int> s({1,2,3});
+
+    ASSERT_TRUE(__cmp(s2,s));
+    ASSERT_TRUE(__cmp(s1,s));
+
+    s21::multiset<int> s3(std::move(s1));
+
+    ASSERT_TRUE(s1.empty());
+    ASSERT_TRUE(__cmp(s3,s));
+
+    s3 = std::move(s2);
+
+    ASSERT_TRUE(s2.empty());
+    ASSERT_TRUE(__cmp(s3,s));
+}
+

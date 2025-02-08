@@ -1,4 +1,4 @@
-#pragma
+#pragma once
 #include "list.h"
 template <typename _T>
 __list_iterator<_T>::__list_iterator(){}

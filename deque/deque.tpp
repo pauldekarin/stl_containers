@@ -203,7 +203,7 @@ namespace s21{
             this->__map_size = __new_size;
         }
 
-        if(std::distance(this->map_, this->tail_.map_) < this->__map_size - 1){
+        if(std::distance(this->map_, this->tail_.map_) < static_cast<typename iterator::difference_type>(this->__map_size - 1)){
             size_type __dist = this->__map_size - 1 - std::distance(this->map_, this->tail_.map_);
             size_type __offset = std::distance(this->map_, this->head_.map_);
 
@@ -299,7 +299,7 @@ namespace s21{
                 return false;
             }
         }else{
-            if(std::distance(this->map_, this->tail_.map_) == this->__map_size - 1 && this->tail_.current_ == this->tail_.end_){
+            if(std::distance(this->map_, this->tail_.map_) == static_cast<typename iterator::difference_type>(this->__map_size) - 1 && this->tail_.current_ == this->tail_.end_){
                 return false;
             }
         }   
